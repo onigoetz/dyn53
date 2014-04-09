@@ -1,0 +1,24 @@
+{
+    "name": "onigoetz/dyn53",
+    "description": "DynDNS equivalent, uses Amazon Route53",
+    "licence": "MIT",
+    "authors": [
+        {
+            "name": "Stéphane Goetz",
+            "email": "onigoetz@onigoetz.ch"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/console": "2.4.*",
+		"symfony/finder": "2.4.*",
+		"aws/aws-sdk-php": "2.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Onigoetz\\Dyn53\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

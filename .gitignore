@@ -1,0 +1,6 @@
+vendor/
+composer.lock
+dyn53.phar
+
+.idea
+*.iml
