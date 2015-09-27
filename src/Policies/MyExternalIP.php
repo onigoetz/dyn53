@@ -9,7 +9,6 @@ namespace Onigoetz\Dyn53\Policies;
  */
 class MyExternalIP implements ResolverPolicy
 {
-
     public function getIP()
     {
         //TODO :: use guzzle
