@@ -21,6 +21,7 @@ class Application extends BaseApplication
         $commands = parent::getDefaultCommands();
         $commands[] = new UpdateCommand();
         $commands[] = new ListCommand();
+
         return $commands;
     }
 }

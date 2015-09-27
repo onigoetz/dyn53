@@ -1,7 +1,6 @@
 <?php
 namespace Onigoetz\Dyn53\Commands;
 
-use Aws\Common\Exception\LogicException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -33,10 +32,10 @@ abstract class AbstractCommand extends Command
 
     protected function readConfig(InputInterface $input)
     {
-        $config = array();
+        $config = [];
         $file = $input->getOption('config');
         if ($file) {
-            if(!file_exists($file)) {
+            if (!file_exists($file)) {
                 throw new \LogicException("the file '$file' doesn't exist");
             }
 
@@ -59,7 +58,7 @@ abstract class AbstractCommand extends Command
 
     protected function getParameters()
     {
-        $parameters = array();
+        $parameters = [];
 
         foreach ($this->getDefinition()->getOptions() as $option) {
             if ($option->getName() != 'config') {
@@ -72,7 +71,7 @@ abstract class AbstractCommand extends Command
 
     protected function getMandatoryParameters()
     {
-        return array('key', 'secret');
+        return ['key', 'secret'];
     }
 
     protected function getConfiguration(InputInterface $input)

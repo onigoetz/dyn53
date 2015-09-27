@@ -55,12 +55,12 @@ class UpdateCommand extends AbstractCommand
     protected function getCurrentRecord(Route53Client $client, $config)
     {
         return $client->listResourceRecordSets(
-            array(
+            [
                 'HostedZoneId' => $config['zone'],
                 'StartRecordName' => $config['domain'],
                 'StartRecordType' => 'A',
-                'MaxItems' => 1
-            )
+                'MaxItems' => 1,
+            ]
         );
     }
 
@@ -88,28 +88,28 @@ class UpdateCommand extends AbstractCommand
     protected function applyUpdate($client, $config)
     {
         $client->changeResourceRecordSets(
-            array(
+            [
                 // HostedZoneId is required
                 'HostedZoneId' => $config['zone'],
                 // ChangeBatch is required
-                'ChangeBatch' => array(
+                'ChangeBatch' => [
                     'Comment' => 'An IP address change was detected; updating',
                     // Changes is required
-                    'Changes' => array(
-                        array(
+                    'Changes' => [
+                        [
                             // Action is required
                             'Action' => 'UPSERT',
                             // ResourceRecordSet is required
-                            'ResourceRecordSet' => array(
+                            'ResourceRecordSet' => [
                                 'Name' => $config['domain'],
                                 'Type' => 'A',
                                 'TTL' => '60',
-                                'ResourceRecords' => array(array('Value' => $config['ip']))
-                            )
-                        )
-                    ),
-                ),
-            )
+                                'ResourceRecords' => [['Value' => $config['ip']]],
+                            ],
+                        ],
+                    ],
+                ],
+            ]
         );
     }
 
@@ -124,16 +124,16 @@ class UpdateCommand extends AbstractCommand
         }
 
         //open connection to R53
-        $client = Route53Client::factory(array('key' => $config['key'], 'secret' => $config['secret']));
+        $client = Route53Client::factory(['key' => $config['key'], 'secret' => $config['secret']]);
 
         $current = $this->getCurrentRecord($client, $config);
 
         if ($this->needsUpdate($config, $current)) {
             $result = $this->applyUpdate($client, $config);
 
-            $output->writeln("Updated IP to : " . $config['ip']);
+            $output->writeln('Updated IP to : ' . $config['ip']);
         } else {
-            $output->writeln("Nothing to update");
+            $output->writeln('Nothing to update');
         }
     }
 }
